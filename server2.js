@@ -1,3 +1,4 @@
+import { log } from "console";
 import {createServer} from "http"
 
 const PORT = process.env.PORT;
@@ -25,8 +26,15 @@ const users = [
     {id: 20, name: 'Jasmine'}
 ];
 
+//Logger middleware - usually this would be in separate file
+const logger = (req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+}
+
 const server = createServer((req, res) => {
-    if (req.url === '/api/users' && req.method === 'GET') {
+    logger(req, res, () => {
+        if (req.url === '/api/users' && req.method === 'GET') {
         res.setHeader('Content-Type', 'application/json');
         res.write(JSON.stringify(users));
         res.end();
@@ -49,6 +57,8 @@ const server = createServer((req, res) => {
         res.write(JSON.stringify({message : 'Route not found'}));
         res.end();
     }
+    })
+    
 });
 
 server.listen(PORT, () => {
