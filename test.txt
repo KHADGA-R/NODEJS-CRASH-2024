@@ -1,1 +1,2 @@
 Hello, I am writing to this file
+Hello, I am appending to this file

@@ -1,5 +1,5 @@
 
-import { readFile, writeFile } from 'fs/promises';
+import { readFile, writeFile, appendFile} from 'fs/promises';
 
 //readFile() - callback
 // fs.readFile('./test.txt', 'utf8', (err, data) => {
@@ -37,7 +37,27 @@ const writeFileContent = async () => {
     } catch (err) {
         console.log(err);
     }
+};
+
+//appendFile()
+
+const appendFileContent = async () => {
+     try{
+        await appendFile('./test.txt', '\nHello, I am appending to this file');
+        console.log('File appended successfully');
+     } catch (err) {
+        console.log(err);
+     }
+};
+
+const runOperations = async () => {
+    try {
+        await writeFileContent();
+        await appendFileContent();
+        await readFileContent();
+    } catch (err) {
+        console.log(err);
+    }
 }
 
-writeFileContent();
-readFileContent();
+runOperations();
